@@ -1,18 +1,14 @@
 import { Todo } from "../todos/models/todo.model";
 // Store
 
-const Filters = {
+export const Filters = {
     All: "all",
     Completed: "completed",
     Peding: "pending",
 };
 
 const state = {
-    todos: [
-        new Todo("Piedra del alma"),
-        new Todo("Piedra del infinito"),
-        new Todo("Piedra del Tiempo"),
-    ],
+    todos: [],
     filter: Filters.All,
 };
 
@@ -24,9 +20,11 @@ const iniStore = () => {
 
 const loadStore = () => {
     if (!localStorage.getItem("state")) return;
-    const {todos = [], filter = filter.All} =JSON.parse(localStorage.getItem("state"))
-    state.todos = todos
-    state.filter = filter
+    const { todos = [], filter = filter.All } = JSON.parse(
+        localStorage.getItem("state")
+    );
+    state.todos = todos;
+    state.filter = filter;
 };
 
 const saveStateToLocalStorage = () => {
@@ -88,7 +86,7 @@ const deleteTodo = (todoId) => {
     saveStateToLocalStorage();
 };
 const deleteCompleted = () => {
-    state.todos = state.todos.filter((todo) => todo.done);
+    state.todos = state.todos.filter((todo) => !todo.done);
     saveStateToLocalStorage();
 };
 
